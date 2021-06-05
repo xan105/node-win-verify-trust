@@ -28,7 +28,7 @@ API
 ===
 
 Default and named export are the same.<br/>
-Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.xpi'|
+Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.xpi'
 
 ### <Promise> isSigned(string filePath) : bool
 
