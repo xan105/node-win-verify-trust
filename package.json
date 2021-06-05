@@ -1,0 +1,47 @@
+{
+  "name": "@xan105/win-verify-trust",
+  "version": "1.0.0",
+  "description": "Check the signature of an executable file using the WinVerifyTrust API",
+  "type": "module",
+  "exports": "./lib/esm.js",
+  "os": [
+    "win32"
+  ],
+  "engines": {
+    "node": ">=0.14"
+  },
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "clean": "node-gyp clean",
+    "lint": "npx eslint --ignore-path .gitignore ./**/*.{js,mjs}"
+  },
+  "keywords": [
+    "WinVerifyTrust",
+    "signature",
+    "sign",
+    "windows"
+  ],
+  "author": {
+    "name": "Anthony Beaumont",
+    "email": "dev.xan105@outlook.be",
+    "url": "https://xan105.com/"
+  },
+  "license": "MIT",
+  "gypfile": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xan105/node-win-verify-trust.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xan105/node-win-verify-trust/issues"
+  },
+  "homepage": "https://github.com/xan105/node-win-verify-trust#readme",
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "node-gyp": "^8.1.0"
+  },
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "node-addon-api": "^3.2.1"
+  }
+}
