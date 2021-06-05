@@ -27,7 +27,7 @@ You will need C/C++ build tools and Python 3.x(node-gyp) to build this module.
 API
 ===
 
-Default and named export are the same.
+Default and named export are the same.<br/>
 Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.xpi'|
 
 ### <Promise> isSigned(string filePath) : bool
