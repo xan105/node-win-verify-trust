@@ -29,13 +29,13 @@ API
 
 Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.msix', '.xpi'
 
-### <Promise> isSigned(string filePath) : bool
+### `<Promise> isSigned(string filePath) : bool`
 
 Check if specified filePath is signed.
 
 Return true (signed), false (unsigned).
 
-### <Promise> trustStatus(string filePath) : string
+### `<Promise> trustStatus(string filePath) : string`
 
 Return the trust status (verbose) of the specified filePath:
 
@@ -47,6 +47,6 @@ Return the trust status (verbose) of the specified filePath:
 - The signature wasn't explicitly trusted by the admin and admin policy has disabled user trust. No signature, publisher or timestamp errors
 - The UI was disabled in dwUIChoice or the admin policy has disabled user trust
 
-### <Promise> isSignedVerbose(string filePath) : <obj>{bool signed, string message}
+### `<Promise> isSignedVerbose(string filePath) : <obj>{bool signed, string message}`
 
 If you need the result of both in one go. 
