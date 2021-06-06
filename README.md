@@ -20,14 +20,13 @@ Installation
 
 `npm install @xan105/win-verify-trust`
 
-You will need C/C++ build tools and Python 3.x(node-gyp) to build this module.
-
-⚠️ This module is only available as an ECMAScript module (ESM).
+You will need C/C++ build tools and Python 3.x (node-gyp) to build this module.
 
 API
 ===
 
-Default and named export are the same.<br/>
+⚠️ This module is only available as an ECMAScript module (ESM).
+
 Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.xpi'
 
 ### <Promise> isSigned(string filePath) : bool
