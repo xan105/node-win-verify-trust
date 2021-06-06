@@ -21,5 +21,13 @@
       "no-eval": "error",
       "require-await": "warn",
       "no-useless-escape": "warn"
-    }
+    },
+    "overrides": [
+      {
+        "files": ["test/*.{js,mjs}"],
+        "rules": {
+          "require-await": "off"
+        }
+      }
+    ]
 }

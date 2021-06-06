@@ -61,6 +61,12 @@ Napi::Object verifySignature(const Napi::CallbackInfo& info){
   std::wstring wrapper = stringToWString(filePath);
   LPCWSTR pwszSourceFile = wrapper.c_str();
   
+  /* 
+  From https://docs.microsoft.com/en-us/windows/win32/seccrypto/example-c-program--verifying-the-signature-of-a-pe-file
+  Copyright (C) Microsoft. All rights reserved.
+  No copyright or trademark infringement is intended in using the aforementioned Microsoft example.
+  */
+  
   LONG lStatus;
   DWORD dwLastError;
 
@@ -122,7 +128,7 @@ Napi::Object verifySignature(const Napi::CallbackInfo& info){
   switch (lStatus) 
   {
     case ERROR_SUCCESS:
-      result.Set("code", 0);
+      result.Set("signed", true);
       result.Set("message", "The file is signed and the signature was verified");
       break;
         
@@ -134,33 +140,33 @@ Napi::Object verifySignature(const Napi::CallbackInfo& info){
           TRUST_E_SUBJECT_FORM_UNKNOWN == dwLastError ||
           TRUST_E_PROVIDER_UNKNOWN == dwLastError) 
       {
-        result.Set("code", 1);
+        result.Set("signed", false);
         result.Set("message", "The file is not signed");     
       } 
       else 
       {
-        result.Set("code", 2);
+        result.Set("signed", false);
         result.Set("message", "An unknown error occurred trying to verify the signature of the file");
       }
       break;
 
     case TRUST_E_EXPLICIT_DISTRUST:
-      result.Set("code", 3);
+      result.Set("signed", false);
       result.Set("message", "The signature is present but specifically disallowed by the admin or user");     
       break;
 
     case TRUST_E_SUBJECT_NOT_TRUSTED:
-      result.Set("code", 4);
+      result.Set("signed", false);
       result.Set("message", "The signature is present but not trusted"); 
       break;
 
     case CRYPT_E_SECURITY_SETTINGS:
-      result.Set("code", 5);
+      result.Set("signed", false);
       result.Set("message", "The signature wasn't explicitly trusted by the admin and admin policy has disabled user trust. No signature, publisher or timestamp errors"); 
       break;
 
     default:
-      result.Set("code", 6);
+      result.Set("signed", false);
       result.Set("message", "The UI was disabled in dwUIChoice or the admin policy has disabled user trust");
       break;
   }

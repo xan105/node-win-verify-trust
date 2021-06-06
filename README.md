@@ -25,9 +25,9 @@ You will need C/C++ build tools and Python 3.x (node-gyp) to build this module.
 API
 ===
 
-⚠️ This module is only available as an ECMAScript module (ESM).
+⚠️ This module is only available as an ECMAScript module (ESM) with named export.
 
-Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.xpi'
+Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.msix', '.xpi'
 
 ### <Promise> isSigned(string filePath) : bool
 
@@ -37,7 +37,7 @@ Return true (signed), false (unsigned).
 
 ### <Promise> trustStatus(string filePath) : string
 
-Return the trust status (verbose) of the specified filePath.
+Return the trust status (verbose) of the specified filePath:
 
 - The file is signed and the signature was verified
 - The file is not signed
@@ -46,3 +46,7 @@ Return the trust status (verbose) of the specified filePath.
 - The signature is present but not trusted
 - The signature wasn't explicitly trusted by the admin and admin policy has disabled user trust. No signature, publisher or timestamp errors
 - The UI was disabled in dwUIChoice or the admin policy has disabled user trust
+
+### <Promise> isSignedVerbose(string filePath) : <obj>{bool signed, string message}
+
+If you need the result of both in one go. 

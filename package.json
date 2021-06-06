@@ -10,10 +10,15 @@
   "engines": {
     "node": ">=0.14"
   },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "scripts": {
     "build": "node-gyp rebuild",
     "clean": "node-gyp clean",
-    "lint": "npx eslint --ignore-path .gitignore ./**/*.{js,mjs}"
+    "lint": "npx eslint --ignore-path .gitignore ./**/*.{js,mjs}",
+    "test": "tap --no-coverage"
   },
   "keywords": [
     "WinVerifyTrust",
@@ -38,7 +43,8 @@
   "homepage": "https://github.com/xan105/node-win-verify-trust#readme",
   "devDependencies": {
     "eslint": "^7.28.0",
-    "node-gyp": "^8.1.0"
+    "node-gyp": "^8.1.0",
+    "tap": "^15.0.9"
   },
   "dependencies": {
     "bindings": "^1.5.0",
