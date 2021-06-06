@@ -1,4 +1,4 @@
-Check the signature of an executable file using the WinVerifyTrust API.
+Check the signature of an _executable_ file using the WinVerifyTrust API.
 
 Example
 =======
@@ -33,7 +33,7 @@ Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi'
 
 Check if specified filePath is signed.
 
-Return true (signed), false (unsigned).
+Return true (_signed_), false (_unsigned_).
 
 #### `<Promise> trustStatus(string filePath) : string`
 
