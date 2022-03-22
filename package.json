@@ -1,24 +1,23 @@
 {
   "name": "@xan105/win-verify-trust",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Check the signature of an executable file using the WinVerifyTrust API",
   "type": "module",
-  "exports": "./lib/esm.js",
+  "exports": "./lib/index.js",
+  "types": "./types/index.d.ts",
   "os": [
     "win32"
   ],
   "engines": {
-    "node": ">=0.14"
+    "node": ">=16.0.0"
   },
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
+  "gypfile": true,
   "scripts": {
     "build": "node-gyp rebuild",
     "clean": "node-gyp clean",
     "lint": "npx eslint --ignore-path .gitignore ./**/*.{js,mjs}",
-    "test": "tap --no-coverage"
+    "test": "tap --no-coverage",
+    "install": "node-gyp-load"
   },
   "keywords": [
     "WinVerifyTrust",
@@ -32,7 +31,6 @@
     "url": "https://xan105.com/"
   },
   "license": "MIT",
-  "gypfile": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xan105/node-win-verify-trust.git"
@@ -42,12 +40,15 @@
   },
   "homepage": "https://github.com/xan105/node-win-verify-trust#readme",
   "devDependencies": {
-    "eslint": "^7.28.0",
-    "node-gyp": "^8.1.0",
-    "tap": "^15.0.9"
+    "eslint": "^8.11.0",
+    "node-gyp": "^9.0.0",
+    "tap": "^16.0.0"
   },
   "dependencies": {
-    "bindings": "^1.5.0",
-    "node-addon-api": "^3.2.1"
+    "@xan105/error": "^1.2.0",
+    "@xan105/fs": "^2.0.4",
+    "@xan105/is": "^2.4.0",
+    "node-addon-api": "^4.3.0",
+    "node-gyp-load": "^0.0.3"
   }
 }
