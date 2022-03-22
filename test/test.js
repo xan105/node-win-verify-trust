@@ -1,4 +1,4 @@
-import { isSigned, trustStatus } from "../lib/esm.js";
+import { isSigned, trustStatus } from "../lib/index.js";
 import { resolve } from "node:path";
 import t from "tap";
 

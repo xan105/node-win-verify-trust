@@ -1,3 +1,6 @@
+About
+=====
+
 Check the signature of an _executable_ file using the WinVerifyTrust API.
 
 Example
@@ -18,24 +21,33 @@ console.log( await trustStatus("path/to/file") ); //Verbose
 Installation
 ============
 
-`npm install @xan105/win-verify-trust`
+```
+npm install @xan105/win-verify-trust
+```
 
-You will need C/C++ build tools and Python 3.x (node-gyp) to build this module.
+Force compiling:
+```
+npm install @xan105/win-verify-trust --build-from-source
+```
+
+You will need C/C++ build tools and Python 3.x (node-gyp) to build this module.<br />
 
 API
 ===
 
-⚠️ This module is only available as an ECMAScript module (ESM) with named export.
+⚠️ This module is only available as an ECMAScript module (ESM).
 
-Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.msix', '.xpi'
+## Named export
 
-#### `<Promise> isSigned(string filePath) : bool`
+⚠️ Only the following file ext are allowed : '.exe', '.cab', '.dll', '.ocx', '.msi', '.msix', '.xpi'
+
+#### `isSigned(filePath: string): Promise<boolean>`
 
 Check if specified filePath is signed.
 
 Return true (_signed_), false (_unsigned_).
 
-#### `<Promise> trustStatus(string filePath) : string`
+#### `trustStatus(filePath: string): Promise<string>`
 
 Return the trust status (verbose) of the specified filePath:
 
@@ -47,6 +59,13 @@ Return the trust status (verbose) of the specified filePath:
 - The signature wasn't explicitly trusted by the admin and admin policy has disabled user trust. No signature, publisher or timestamp errors
 - The UI was disabled in dwUIChoice or the admin policy has disabled user trust
 
-#### `<Promise> isSignedVerbose(string filePath) : <obj>{bool signed, string message}`
+#### `isSignedVerbose(filePath: string): Promise<obj>`
 
-If you need the result of both in one go. 
+If you need the result of both in one go.
+
+```ts
+{
+  signed: boolean,
+  message: string
+}
+```

@@ -1,5 +1,5 @@
 .github/
 build/
 test/
-.nyc_output/
 .eslintrc.json
+.nyc_output/
