@@ -15,7 +15,7 @@
   "scripts": {
     "build": "node-gyp rebuild",
     "clean": "node-gyp clean",
-    "lint": "npx eslint --ignore-path .gitignore ./**/*.{js,mjs}",
+    "lint": "npx eslint --ignore-path .gitignore \"./**/*.{js,mjs}\"",
     "test": "tap --no-coverage",
     "install": "node-gyp-load"
   },
