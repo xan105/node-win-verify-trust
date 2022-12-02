@@ -39,16 +39,30 @@
     "url": "https://github.com/xan105/node-win-verify-trust/issues"
   },
   "homepage": "https://github.com/xan105/node-win-verify-trust#readme",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/xan105"
+    },
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.me/xan105"
+    },
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/xan105"
+    }
+  ],
   "devDependencies": {
-    "eslint": "^8.11.0",
-    "node-gyp": "^9.0.0",
-    "tap": "^16.0.0"
+    "eslint": "^8.28.0",
+    "node-gyp": "^9.3.0",
+    "tap": "^16.3.2"
   },
   "dependencies": {
-    "@xan105/error": "^1.2.0",
-    "@xan105/fs": "^2.0.4",
-    "@xan105/is": "^2.4.0",
-    "node-addon-api": "^4.3.0",
-    "node-gyp-load": "^0.0.3"
+    "@xan105/error": "^1.4.3",
+    "@xan105/fs": "^2.1.0",
+    "@xan105/is": "^2.7.0",
+    "node-addon-api": "^5.0.0",
+    "node-gyp-load": "^0.0.4"
   }
 }
