@@ -1,8 +1,7 @@
-declare interface IStatus {
-  signed: boolean,
+declare interface Status {
+  trusted: boolean,
   message: string
 }
 
-export function isSignedVerbose(filePath: string): Promise<IStatus>;
+export function verifyTrust(filePath: string): Promise<Status>;
 export function isSigned(filePath: string): Promise<boolean>;
-export function trustStatus(filePath: string): Promise<string>;
