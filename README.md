@@ -3,6 +3,8 @@ About
 
 Check the signature of a file using the WinVerifyTrust API.
 
+📦 Scoped `@xan105` packages are for my own personal use but feel free to use them.
+
 Example
 =======
 
@@ -58,7 +60,7 @@ Returns an object as
   trusted: boolean,
   message: string
 }
-``
+```
 
 Where `trusted` indicates if the file is signed and the signature was verified.<br/>
 And `message` the details of the trust status (verbose).
