@@ -2,6 +2,10 @@
 Copyright (c) Anthony Beaumont
 This source code is licensed under the MIT License
 found in the LICENSE file in the root directory of this source tree.
+
+Based from https://docs.microsoft.com/en-us/windows/win32/seccrypto/example-c-program--verifying-the-signature-of-a-pe-file
+Copyright (C) Microsoft. All rights reserved.
+No copyright or trademark infringement is intended in using the aforementioned Microsoft example.
 */
 
 #include <napi.h>
@@ -31,24 +35,17 @@ std::wstring stringToWString(const std::string &s)
     return buf;
 }
 
-Napi::Object verifySignature(const Napi::CallbackInfo& info){
+Napi::Number verifySignature(const Napi::CallbackInfo& info){
   Napi::Env env = info.Env();
   
-  int length = info.Length();
-  if (length != 1 || !info[0].IsString()) Napi::TypeError::New(env, "String expected").ThrowAsJavaScriptException();
+  unsigned int length = info.Length();
+  if (length != 1) Napi::TypeError::New(env, "Expected 1 argument").ThrowAsJavaScriptException();
+  
+  if (!info[0].IsString()) Napi::TypeError::New(env, "String expected").ThrowAsJavaScriptException();
   Napi::String filePath = info[0].As<Napi::String>();
+  LPCWSTR pwszSourceFile = stringToWString(filePath).c_str();
   
-  Napi::Object result = Napi::Object::New(env);
-
-  std::wstring wrapper = stringToWString(filePath);
-  LPCWSTR pwszSourceFile = wrapper.c_str();
-  
-  /* 
-  From https://docs.microsoft.com/en-us/windows/win32/seccrypto/example-c-program--verifying-the-signature-of-a-pe-file
-  Copyright (C) Microsoft. All rights reserved.
-  No copyright or trademark infringement is intended in using the aforementioned Microsoft example.
-  */
-  
+  Napi::Number result;
   LONG lStatus;
   DWORD dwLastError;
 
@@ -107,58 +104,20 @@ Napi::Object verifySignature(const Napi::CallbackInfo& info){
   // and Wintrust_Data.
   lStatus = WinVerifyTrust(NULL, &WVTPolicyGUID, &WinTrustData);
   
-  switch (lStatus) 
-  {
-    case ERROR_SUCCESS:
-      result.Set("signed", true);
-      result.Set("message", "The file is signed and the signature was verified");
-      break;
-        
-    case TRUST_E_NOSIGNATURE:
-      // The file was not signed or had a signature that was not valid.
-      // Get the reason for no signature.
-      dwLastError = GetLastError();
-      if (TRUST_E_NOSIGNATURE == dwLastError ||
-          TRUST_E_SUBJECT_FORM_UNKNOWN == dwLastError ||
-          TRUST_E_PROVIDER_UNKNOWN == dwLastError) 
-      {
-        result.Set("signed", false);
-        result.Set("message", "The file is not signed");     
-      } 
-      else 
-      {
-        result.Set("signed", false);
-        result.Set("message", "An unknown error occurred trying to verify the signature of the file");
-      }
-      break;
-
-    case TRUST_E_EXPLICIT_DISTRUST:
-      result.Set("signed", false);
-      result.Set("message", "The signature is present but specifically disallowed by the admin or user");     
-      break;
-
-    case TRUST_E_SUBJECT_NOT_TRUSTED:
-      result.Set("signed", false);
-      result.Set("message", "The signature is present but not trusted"); 
-      break;
-
-    case CRYPT_E_SECURITY_SETTINGS:
-      result.Set("signed", false);
-      result.Set("message", "The signature wasn't explicitly trusted by the admin and admin policy has disabled user trust. No signature, publisher or timestamp errors"); 
-      break;
-
-    default:
-      result.Set("signed", false);
-      result.Set("message", "The UI was disabled in dwUIChoice or the admin policy has disabled user trust");
-      break;
+  if (lStatus == TRUST_E_NOSIGNATURE) {
+      dwLastError = GetLastError(); // Get the reason for no signature.
+      result = Napi::Number::New(env, dwLastError);
   }
-
+  else {
+      result = Napi::Number::New(env, lStatus);
+  }
+  
   // Any hWVTStateData must be released by a call with close.
   WinTrustData.dwStateAction = WTD_STATEACTION_CLOSE;
 
   lStatus = WinVerifyTrust(NULL, &WVTPolicyGUID, &WinTrustData);
 	
-	return result;
+  return result;
 }
 
 /* NAPI Initialize add-on*/
