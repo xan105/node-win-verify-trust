@@ -1,9 +1,14 @@
 {
   "name": "@xan105/win-verify-trust",
-  "version": "1.1.0",
-  "description": "Check the signature of an executable file using the WinVerifyTrust API",
+  "version": "1.2.0",
+  "description": "Check the signature of a file using the WinVerifyTrust API",
   "type": "module",
-  "exports": "./lib/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
   "types": "./types/index.d.ts",
   "os": [
     "win32"
@@ -13,17 +18,20 @@
   },
   "gypfile": true,
   "scripts": {
+    "install": "node-gyp-load",
     "build": "node-gyp rebuild",
     "clean": "node-gyp clean",
-    "lint": "npx eslint --ignore-path .gitignore \"./**/*.{js,mjs}\"",
-    "test": "tap --no-coverage",
-    "install": "node-gyp-load"
+    "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\"",
+    "test": "tap \"./test/**/*.js\" --no-coverage --no-coverage-report",
+    "check": "tsc --noemit --checkjs",
+    "declare": "tsc --declaration --emitDeclarationOnly --outDir \"./types\"" 
   },
   "keywords": [
     "WinVerifyTrust",
     "signature",
     "sign",
-    "windows"
+    "windows",
+    "trust"
   ],
   "author": {
     "name": "Anthony Beaumont",
@@ -54,9 +62,13 @@
     }
   ],
   "devDependencies": {
+    "@types/node": "^18.11.10",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
     "node-gyp": "^9.3.0",
-    "tap": "^16.3.2"
+    "tap": "^16.3.2",
+    "typescript": "^4.9.3"
   },
   "dependencies": {
     "@xan105/error": "^1.4.3",
