@@ -4,7 +4,9 @@
         "cflags!": [ "-fno-exceptions" ],
         "cflags_cc!": [ "-fno-exceptions" ],
         "sources": [
-            "lib/src/winVerifyTrust.cpp"
+            "lib/src/winVerifyTrust.cpp",
+            "lib/src/certificate.cpp",
+            "lib/src/string.cpp"
         ],
         "msvs_settings": {
           "VCCLCompilerTool": {
