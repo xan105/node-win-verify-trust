@@ -27,5 +27,6 @@ t.test('verifyTrust()', async t => {
 t.test('getCertificate()', async t => {
   await t.test('test file does not exist', async t => t.rejects(getCertificate(sample.enoent), "ENOENT"));
   await t.test('test disallowed file ext', async t => t.rejects(getCertificate(sample.ext), "ERR_UNEXPECTED"));
+  await t.test('test misusage', async t => t.rejects(getCertificate(sample.unsigned), "ETIMEDOUT"));
   t.end();
 });

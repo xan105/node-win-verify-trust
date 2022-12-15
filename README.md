@@ -105,7 +105,7 @@ _eg: "No signature was present in the subject"_
 
 **Remarks**
 
-❌ This function will throw if the target file doesn't exist or file ext isn't allowed.<br/>
+❌ This function will throw if the target file doesn't exist, or file ext isn't allowed, or it timeout.<br/>
 ⚠️ Allowed ext are: ".exe", ".cab", ".dll", ".ocx", ".msi", ".msix", ".xpi", ".ps1".
 
 #### `getCertificate(filePath: string): Promise<object>`
@@ -141,6 +141,8 @@ Where `signer` contains information from the _signer certificate_ and `timestamp
 
 ❌ This function will throw on error.<br/>
 ⚠️ Allowed ext are: ".exe", ".cab", ".dll", ".ocx", ".msi", ".msix", ".xpi", ".ps1".
+
+💡 Invoking this function on an unsigned target will result in an `ETIMEOUT` error. You should use `verifyTrust()` first.
 
 #### `isSigned(filePath: string, name?: string | null): Promise<boolean>`
 
