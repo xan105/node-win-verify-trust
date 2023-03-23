@@ -266,12 +266,9 @@ Napi::Number certificateInfo(const Napi::CallbackInfo& info){
                         certificate.Set("signer", getCertificateInformation(pCertContext, env));
                         
                         // Get the timestamp certificate signerinfo structure.
+                        // szOID_RSA_counterSign (legacy signature standard)
+                        // szOID_RFC3161_counterSign is not implemented
                         if (getTimeStampSignerInfo(pSignerInfo, &pCounterSignerInfo))
-                        /*
-                        getTimeStampSignerInfo() doesn't seem to retrieve all types of timestamp:                   
-                          - szOID_RSA_counterSign => works
-                          - szOID_RFC3161_counterSign => doesn't work
-                        */
                         {
                             // Search for Timestamp certificate in the temporary
                             // certificate store.

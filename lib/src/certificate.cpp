@@ -146,9 +146,9 @@ BOOL getTimeStampSignerInfo(PCMSG_SIGNER_INFO pSignerInfo, PCMSG_SIGNER_INFO* pC
     *pCounterSignerInfo = NULL;
 
     // Loop through unathenticated attributes for
-    // szOID_RSA_counterSign OID.
     for (DWORD n = 0; n < pSignerInfo->UnauthAttrs.cAttr; n++)
     {
+        // szOID_RSA_counterSign (legacy signature standard)
         if (lstrcmpA(pSignerInfo->UnauthAttrs.rgAttr[n].pszObjId,
             szOID_RSA_counterSign) == 0)
         {
