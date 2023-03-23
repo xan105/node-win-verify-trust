@@ -7,13 +7,6 @@ found in the LICENSE file in the root directory of this source tree.
 #define _UNICODE 1
 #define UNICODE 1
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-
-using namespace std;
-#include <iostream>
-
 #include "string.h"
 
 std::wstring stringToWString(const std::string& s)

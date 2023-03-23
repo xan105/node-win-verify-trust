@@ -1,9 +1,8 @@
+#include <napi.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <windows.h>
 #include <wincrypt.h>
 #include <wintrust.h>
-#pragma comment (lib, "wintrust")
 #pragma comment(lib, "crypt32.lib")
 
 typedef struct {
@@ -14,3 +13,5 @@ typedef struct {
 
 BOOL getProgAndPublisherInfo(PCMSG_SIGNER_INFO pSignerInfo, PSPROG_PUBLISHERINFO Info);
 BOOL getTimeStampSignerInfo(PCMSG_SIGNER_INFO pSignerInfo, PCMSG_SIGNER_INFO* pCounterSignerInfo);
+Napi::Object getCertificateInformation(PCCERT_CONTEXT pCertContext, Napi::Env env);
+Napi::Number certificateInfo(const Napi::CallbackInfo& info);
