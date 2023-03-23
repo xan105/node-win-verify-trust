@@ -126,7 +126,7 @@ Returns an object as
     issuer?: string,
     subject?: string
   },
-  timestamp: {
+  timestamp?: {
     issuer?: string,
     subject?: string
   }

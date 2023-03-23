@@ -13,7 +13,7 @@ declare interface CertificateInfo{
   publisherLink?: string,
   infoLink?: string,
   signer: Certificate,
-  timestamp: Certificate
+  timestamp?: Certificate
 }
 
 export function getCertificate(filePath: string): Promise<CertificateInfo>;
