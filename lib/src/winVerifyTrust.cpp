@@ -267,6 +267,11 @@ Napi::Number certificateInfo(const Napi::CallbackInfo& info){
                         
                         // Get the timestamp certificate signerinfo structure.
                         if (getTimeStampSignerInfo(pSignerInfo, &pCounterSignerInfo))
+                        /*
+                        getTimeStampSignerInfo() doesn't seem to retrieve all types of timestamp:                   
+                          - szOID_RSA_counterSign => works
+                          - szOID_RFC3161_counterSign => doesn't work
+                        */
                         {
                             // Search for Timestamp certificate in the temporary
                             // certificate store.
