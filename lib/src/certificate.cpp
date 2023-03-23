@@ -176,7 +176,7 @@ BOOL getTimeStampSignerInfo(PCMSG_SIGNER_INFO pSignerInfo, PCMSG_SIGNER_INFO* pC
     return result;
 }
 
-Napi::Object getCertificateInformation(PCCERT_CONTEXT pCertContext, Napi::Env env) {
+Napi::Object getCertificateInformation(PCCERT_CONTEXT pCertContext, CRYPT_ALGORITHM_IDENTIFIER* pHashAlgo, Napi::Env env) {
 
     Napi::Object certificate = Napi::Object::New(env);
 
@@ -236,6 +236,32 @@ Napi::Object getCertificateInformation(PCCERT_CONTEXT pCertContext, Napi::Env en
         LocalFree(szName);
         szName = NULL;
     }
+
+    // Get Serial Number.
+    std::ostringstream stringStream;
+    dwData = pCertContext->pCertInfo->SerialNumber.cbData;
+    for (DWORD n = 0; n < dwData; n++)
+    {
+        stringStream << std::hex << std::setfill('0') << std::setw(2) << (unsigned int)pCertContext->pCertInfo->SerialNumber.pbData[dwData - (n + 1)];
+    }
+    std::string serialNumber = stringStream.str();
+    certificate.Set("serialNumber", serialNumber.c_str());
+
+    // Digest algorithm.
+    if (pHashAlgo && pHashAlgo->pszObjId)
+    {
+        PCCRYPT_OID_INFO pCOI = CryptFindOIDInfo(CRYPT_OID_INFO_OID_KEY, pHashAlgo->pszObjId, 0);
+        if (pCOI && pCOI->pwszName)
+        {
+            certificate.Set("digestAlgo", wstringToString(pCOI->pwszName).c_str());
+        }
+        else
+        {
+            USES_CONVERSION;
+            certificate.Set("digestAlgo", wstringToString(A2W(pHashAlgo->pszObjId)).c_str());
+        }
+    }
+    
     return certificate;
 }
 
@@ -309,7 +335,6 @@ Napi::Number certificateInfo(const Napi::CallbackInfo& info){
                     // certificate store.
                     CertInfo.Issuer = pSignerInfo->Issuer;
                     CertInfo.SerialNumber = pSignerInfo->SerialNumber;
-
                     if (pCertContext = CertFindCertificateInStore(hStore,
                         ENCODING,
                         0,
@@ -318,10 +343,7 @@ Napi::Number certificateInfo(const Napi::CallbackInfo& info){
                         NULL))
                     {
                         //Get signer certificate information
-                        certificate.Set("signer", getCertificateInformation(pCertContext, env));
-
-                        //Get signer certificate information
-                        certificate.Set("signer", getCertificateInformation(pCertContext, env));
+                        certificate.Set("signer", getCertificateInformation(pCertContext, &pSignerInfo->HashAlgorithm, env));
 
                         // Get the timestamp certificate signerinfo structure.
                         // szOID_RSA_counterSign (legacy signature standard)
@@ -332,7 +354,6 @@ Napi::Number certificateInfo(const Napi::CallbackInfo& info){
                             // certificate store.
                             CertInfo.Issuer = pCounterSignerInfo->Issuer;
                             CertInfo.SerialNumber = pCounterSignerInfo->SerialNumber;
-
                             pCertContext = CertFindCertificateInStore(hStore,
                                 ENCODING,
                                 0,
@@ -342,7 +363,7 @@ Napi::Number certificateInfo(const Napi::CallbackInfo& info){
                             if (pCertContext)
                             {
                                 // Get timestamp certificate information.
-                                certificate.Set("timestamp", getCertificateInformation(pCertContext, env));
+                                certificate.Set("timestamp", getCertificateInformation(pCertContext, &pCounterSignerInfo->HashAlgorithm, env));
                             }
                         }
 

@@ -5,7 +5,9 @@ export function verifyTrust(filePath: string): Promise<{
 
 declare interface Certificate{
   issuer?: string,
-  subject?: string
+  subject?: string,
+  serialNumber?: string,
+  digestAlgo?: string
 }
 
 declare interface CertificateInfo{

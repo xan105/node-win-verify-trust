@@ -3,6 +3,11 @@
 #include <windows.h>
 #include <wincrypt.h>
 #include <wintrust.h>
+
+#include <sstream>
+#include <iomanip>
+#include <atlconv.h>
+
 #pragma comment(lib, "crypt32.lib")
 
 typedef struct {
