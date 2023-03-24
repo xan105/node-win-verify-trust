@@ -41,18 +41,22 @@ console.log(certificate)
 {
   signer: {
     issuer: 'DigiCert SHA2 Assured ID Code Signing CA',
-    subject: 'Valve'
+    subject: 'Valve',
+    serialNumber: '054f466ceccbe9d6bee81f5435e64d47',
+    digestAlgo: 'sha1'
   },
   timestamp: {
     issuer: 'Symantec Time Stamping Services CA - G2',
-    subject: 'Symantec Time Stamping Services Signer - G4'
+    subject: 'Symantec Time Stamping Services Signer - G4',
+    serialNumber: '0ecff438c8febf356e04d86a981b1a50',
+    digestAlgo: 'sha1'
   }
 }
 */
 ```
 
 💡 You can pass an optional arg to `isSigned()` <br/>
-to also check that the cert was signed for the specified subject:
+to also check that the cert was signed for the specified signer subject:
 
 ```js
 import { isSigned } from "@xan105/win-verify-trust";
@@ -124,11 +128,15 @@ Returns an object as
   infoLink?: string,
   signer: {
     issuer?: string,
-    subject?: string
+    subject?: string,
+    serialNumber?: string,
+    digestAlgo?: string
   },
   timestamp?: {
     issuer?: string,
-    subject?: string
+    subject?: string,
+    serialNumber?: string,
+    digestAlgo?: string
   }
 }
 ```

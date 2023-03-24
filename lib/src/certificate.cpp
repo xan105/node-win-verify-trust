@@ -168,6 +168,13 @@ BOOL getTimeStampSignerInfo(PCMSG_SIGNER_INFO pSignerInfo, PCMSG_SIGNER_INFO* pC
             }
             break; // Break from for loop.
         }
+        // szOID_RFC3161_counterSign
+        /*
+        else if (lstrcmpA(pSignerInfo->UnauthAttrs.rgAttr[n].pszObjId,
+                 szOID_RFC3161_counterSign) == 0)
+        {
+        }
+        */
     }
 
     // Clean up.
@@ -366,6 +373,10 @@ Napi::Number certificateInfo(const Napi::CallbackInfo& info){
                                 certificate.Set("timestamp", getCertificateInformation(pCertContext, &pCounterSignerInfo->HashAlgorithm, env));
                             }
                         }
+
+                        //szOID_NESTED_SIGNATURE
+                        // aka "dual sign" (eg: Putty.exe) 
+                        //not implemented
 
                     }
                     else result = Napi::Number::New(env, GetLastError());
