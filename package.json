@@ -1,6 +1,6 @@
 {
   "name": "@xan105/win-verify-trust",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Check the signature of a file using the WinVerifyTrust API",
   "type": "module",
   "exports": {
@@ -75,7 +75,7 @@
     "@xan105/error": "^1.6.0",
     "@xan105/fs": "^2.1.0",
     "@xan105/is": "^2.8.1",
-    "node-gyp-load": "^0.0.4",
-    "node-addon-api": "^6.0.0"
+    "node-addon-api": "^6.0.0",
+    "node-gyp-load": "^0.0.5"
   }
 }
