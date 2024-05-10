@@ -21,6 +21,7 @@
     "install": "node-gyp-load",
     "build:x86": "node-gyp rebuild --arch=ia32",
     "build:x64": "node-gyp rebuild --arch=x64",
+    "build:arm64": "node-gyp rebuild --arch=arm64",
     "clean": "node-gyp clean",
     "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\"",
     "test": "tap \"./test/**/*.js\" --no-coverage --no-coverage-report",

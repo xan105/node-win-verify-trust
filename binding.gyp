@@ -1,6 +1,6 @@
 {
     "targets": [{
-        "target_name": "winVerifyTrust",
+        "target_name": "winVerifyTrust.napi",
         "cflags!": [ "-fno-exceptions" ],
         "cflags_cc!": [ "-fno-exceptions" ],
         "sources": [
