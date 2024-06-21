@@ -10,11 +10,15 @@
     }
   },
   "types": "./types/index.d.ts",
-  "os": [
-    "win32"
+  "files": [
+    "/lib",
+    "/prebuilds",
+    "/types",
+    "/binding.gyp"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=20.12.2",
+    "npm": "^10.5.0"
   },
   "gypfile": true,
   "scripts": {
@@ -24,7 +28,7 @@
     "build:arm64": "node-gyp rebuild --arch=arm64",
     "clean": "node-gyp clean",
     "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\"",
-    "test": "tap \"./test/**/*.js\" --no-coverage --no-coverage-report",
+    "test": "node --test test/",
     "check": "tsc --noemit --checkjs",
     "declare": "tsc --declaration --emitDeclarationOnly --outDir \"./types\""
   },
@@ -64,19 +68,17 @@
     }
   ],
   "devDependencies": {
-    "@types/node": "^18.11.10",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.28.0",
-    "node-gyp": "^9.3.1",
-    "tap": "^16.3.4",
-    "typescript": "^4.9.3"
+    "@eslint/js": "^9.5.0",
+    "@types/node": "^20.14.2",
+    "eslint": "^9.5.0",
+    "globals": "^15.5.0",
+    "typescript": "5.4",
+    "typescript-eslint": "^8.0.0-alpha.30"
   },
   "dependencies": {
-    "@xan105/error": "^1.6.0",
-    "@xan105/fs": "^2.1.0",
-    "@xan105/is": "^2.8.1",
-    "node-addon-api": "^6.0.0",
-    "node-gyp-load": "^0.0.5"
+    "@xan105/error": "^1.7.1",
+    "@xan105/fs": "^2.2.1",
+    "@xan105/is": "^2.9.3",
+    "node-gyp-load": "^1.1.1"
   }
 }

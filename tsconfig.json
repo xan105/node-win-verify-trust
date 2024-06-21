@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "module": "node16",
+    "module": "nodenext",
     "allowJs": true,
     "strict": true,
     "noImplicitAny": false
   },
   "exclude":[
+    "eslint.config.js",
     "node_modules",
     "test"
   ]

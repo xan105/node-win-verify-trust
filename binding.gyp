@@ -1,6 +1,6 @@
 {
     "targets": [{
-        "target_name": "winVerifyTrust.napi",
+        "target_name": "winVerifyTrust",
         "cflags!": [ "-fno-exceptions" ],
         "cflags_cc!": [ "-fno-exceptions" ],
         "sources": [
@@ -15,13 +15,12 @@
              "AdditionalOptions": []
           }
          },
-        'include_dirs': [
-            "<!@(node -p \"require('node-addon-api').include\")"
+        "include_dirs": [
+            "<!(node -p \"require('node-addon-api').include_dir\")"
         ],
-        'libraries': [],
-        'dependencies': [
-            "<!(node -p \"require('node-addon-api').gyp\")"
+        "dependencies": [
+            "<!(node -p \"require('node-addon-api').targets\"):node_addon_api_maybe"
         ],
-        'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ]
+        "defines": [ "NODE_ADDON_API_DISABLE_DEPRECATED" ]
     }]
 }

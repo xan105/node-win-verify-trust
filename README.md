@@ -78,7 +78,7 @@ npm install @xan105/win-verify-trust --build-from-source
 ```
 
 You will need C/C++ build tools and Python 3.x (node-gyp) to build this module.<br />
-🚀 x64 and x86 prebuilt binary provided.
+🚀 x86, x64 and arm64 prebuilt binary provided.
 
 API
 ===
