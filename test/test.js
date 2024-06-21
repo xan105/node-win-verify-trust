@@ -1,5 +1,7 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { attemptify } from "@xan105/error";
 import { isSigned, verifyTrust, getCertificate } from "../lib/index.js";
-import t from "tap";
 
 const sample = {
   signed: "./test/sample/signed.dll",
@@ -8,25 +10,53 @@ const sample = {
   ext: "./test/sample/empty.txt"
 };
 
-t.test('isSigned()', async t => {
-
-  await t.test('test file is signed', async t => t.strictSame(await isSigned(sample.signed, "valve"), true));
-  await t.test('test file is not signed', async t => t.strictSame(await isSigned(sample.unsigned), false));
-  await t.test('test file does not exist', async t => t.strictSame(await isSigned(sample.enoent), false));
-  await t.test('test disallowed file ext', async t => t.strictSame(await isSigned(sample.ext), false));
-  t.end();
+test("isSigned()", async() => {
+  await test(" file is signed", async() => {
+    const result = await isSigned(sample.signed, "valve");
+    assert.equal(result, true);
+  });
   
+  await test(" file is not signed", async() => {
+    const result = await isSigned(sample.unsigned);
+    assert.equal(result, false);
+  });
+  
+  await test(" file does not exist", async() => {
+    const result = await isSigned(sample.enoent);
+    assert.equal(result, false);
+  });
+  
+  await test(" disallowed file ext", async() => {
+    const result = await isSigned(sample.ext);
+    assert.equal(result, false);
+  });
 });
 
-t.test('verifyTrust()', async t => {
-  await t.test('test file does not exist', async t => t.rejects(verifyTrust(sample.enoent), "ENOENT"));
-  await t.test('test disallowed file ext', async t => t.rejects(verifyTrust(sample.ext), "ERR_UNEXPECTED"));
-  t.end();
+test("verifyTrust()", async() => {
+  await test(" file does not exist", async() => {
+    const [, err] = await attemptify(verifyTrust)(sample.enoent);
+    assert.equal(err.code, "ENOENT");
+  });
+  
+  await test(" disallowed file ext", async() => {
+    const [, err] = await attemptify(verifyTrust)(sample.ext);
+    assert.equal(err.code, "ERR_INVALID_ARG");
+  });
 });
 
-t.test('getCertificate()', async t => {
-  await t.test('test file does not exist', async t => t.rejects(getCertificate(sample.enoent), "ENOENT"));
-  await t.test('test disallowed file ext', async t => t.rejects(getCertificate(sample.ext), "ERR_UNEXPECTED"));
-  await t.test('test misusage', async t => t.rejects(getCertificate(sample.unsigned), "ETIMEDOUT"));
-  t.end();
+test("getCertificate()", async() => {
+  await test(" file does not exist", async() => {
+    const [, err] = await attemptify(getCertificate)(sample.enoent);
+    assert.equal(err.code, "ENOENT");
+  });
+  
+  await test(" disallowed file ext", async() => {
+    const [, err] = await attemptify(getCertificate)(sample.ext);
+    assert.equal(err.code, "ERR_INVALID_ARG");
+  });
+  
+  await test(" misusage", async() => {
+    const [, err] = await attemptify(getCertificate)(sample.unsigned);
+    assert.equal(err.code, "ETIMEDOUT");
+  });
 });
