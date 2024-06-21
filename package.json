@@ -1,6 +1,6 @@
 {
   "name": "@xan105/win-verify-trust",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Check the signature of a file using the WinVerifyTrust API",
   "type": "module",
   "exports": {
