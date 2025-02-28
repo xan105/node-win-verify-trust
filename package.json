@@ -1,6 +1,6 @@
 {
   "name": "@xan105/win-verify-trust",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Check the signature of a file using the WinVerifyTrust API",
   "type": "module",
   "exports": {
@@ -28,7 +28,7 @@
     "build:arm64": "node-gyp rebuild --arch=arm64",
     "clean": "node-gyp clean",
     "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\"",
-    "test": "node --test test/",
+    "test": "node --test",
     "check": "tsc --noemit --checkjs",
     "declare": "tsc --declaration --emitDeclarationOnly --outDir \"./types\""
   },
@@ -61,10 +61,6 @@
     {
       "type": "paypal",
       "url": "https://www.paypal.me/xan105"
-    },
-    {
-      "type": "patreon",
-      "url": "https://www.patreon.com/xan105"
     }
   ],
   "devDependencies": {
