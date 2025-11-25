@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: 'latest'
           registry-url: 'https://registry.npmjs.org'
+          
+      # Ensure npm 11.5.1 or later is installed (trusted-publishers)
+      - name: Update npm
+        run: npm install -g npm@latest
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
