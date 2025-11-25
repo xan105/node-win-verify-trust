@@ -110,7 +110,7 @@ _eg: "No signature was present in the subject"_
 **Remarks**
 
 ❌ This function will throw if the target file doesn't exist, or file ext isn't allowed, or it timeout.<br/>
-⚠️ Allowed ext are: ".exe", ".cab", ".dll", ".ocx", ".msi", ".msix", ".xpi", ".ps1".
+⚠️ Allowed ext are: ".exe", ".cab", ".dll", ".ocx", ".msi", ".msix", ".xpi", ".ps1", ".node".
 
 #### `getCertificate(filePath: string): Promise<object>`
 
